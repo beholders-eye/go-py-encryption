@@ -1,0 +1,22 @@
+dependencies:
+  build:
+    - go:1.12.6
+    - python:3.6.8
+  runtime:
+    - go:1.12.6
+    - python:3.6.8
+
+build_targets:
+  - name: default
+    commands:
+      - go build -o godec
+exec:
+    commands:
+      - pip install -r requirements.txt
+      # enc.py actually calls godec binary, with correct parameters (encrypted data and nonce)
+      - python3 enc.py
+
+ci:
+  builds:
+    - name: default
+      build_target: default
